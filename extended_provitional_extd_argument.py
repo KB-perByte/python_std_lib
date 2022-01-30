@@ -1,16 +1,7 @@
-# variable length positional extended arguments
+# day - 2
+# variable length positional extended arguments - extended
 
 import time
-
-charac = ["a", "b", "c", "d", "e"]
-print(charac)
-print(*charac)
-
-def custom_print(*objects):
-    print(f"Objects is type {type(objects)}: {objects}")
-    #can be iterated as per need
-
-custom_print("one", "two")
 
 class Logger:
     '''write data to a database everytime a logger event occurs'''
@@ -19,15 +10,16 @@ class Logger:
         self.table = table
         self.num_events = 0
 
-    def write(self, message):
-        print(f"{time.ctime()}: {self.num_events}: {self.table}:: {message}")
+    def write(self, message, show_counts: bool):
+        print(f"{time.ctime()}: {self.num_events if show_counts else ''}: {self.table}:: {message}")
 
-    def __call__(self, message, *messages): # implements *args specific name
+    def __call__(self, message, *messages, **kwargs): # implements *args specific name
         # self.write(message)
         # self.num_events +=1
+        show_counts = kwargs.get("show_counts", False)
         for msg in [message] + list(messages):
             self.num_events +=1
-            self.write(msg)
+            self.write(msg, show_counts)
 
 
 logger = Logger("log_table")

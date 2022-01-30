@@ -1,3 +1,4 @@
+# day - 1
 # callables
 
 # object that implements the dunder call method
